@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LEARN Board Game</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Seu CSS personalizado -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+  <div class="container py-4">
+    <h1 class="text-center mb-4">LEARN Board Game</h1>
+
+    <!-- Setup de jogadores -->
+    <div id="jogadores-setup" class="mb-4">
+      <div class="row g-2 align-items-center mb-2">
+        <div class="col-md-6">
+          <!-- <label for="qtdJogadores" class="form-label">Quantidade de jogadores:</label> -->
+          <select id="qtdJogadores" class="form-select" onchange="criarInputsJogadores()">
+            <option value="1">1 jogador</option>
+            <option value="2">2 jogadores</option>
+            <option value="3">3 jogadores</option>
+            <option value="4">4 jogadores</option>
+            <option value="5">5 jogadores</option>
+            <option value="6">6 jogadores</option>
+            <option value="7">7 jogadores</option>
+            <option value="8">8 jogadores</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <button onclick="iniciarJogo()" class="btn btn-primary w-100">🎮 Iniciar Jogo</button>
+        </div>
+      </div>
+      <div id="nomesJogadores" class="row g-2"></div>
+    </div>
+
+    <!-- 🧭 Painel de Movimento -->
+    <div class="card mb-3 shadow-sm border-0">
+      <div class="card-body text-center">
+        <!-- <h6 class="card-subtitle mb-2 text-muted">Histórico de Jogadas</h6> -->
+        <div class="btn-group" role="group">
+          <button onclick="desfazerMovimento()" class="btn btn-outline-danger">
+            Desfazer ↩️
+          </button>
+          <button onclick="refazerMovimento()" class="btn btn-outline-success">
+            ↪️ Refazer
+          </button>
+        </div>
+        <!-- Botão para abrir o ranking -->       
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#rankingModal">📊 Ranking</button>
+        <button class="btn btn-outline-danger" onclick="confirmarReinicio()">🧹 Reiniciar Jogo</button>
+      </div>
+    </div>
+
+    <!-- Tabuleiro -->
+    <!-- <div id="tabuleiro" class="d-flex flex-wrap justify-content-center gap-2 my-3"> -->
+    <div id="tabuleiro" class="d-flex flex-wrap justify-content-center mb-4">
+    <!-- <div class="casa col-3 col-sm-2 col-md-1">1</div> -->
+      <div class="casa inicio" onclick="moverPinoManual(casaIndex)" data-casa-index="0">Início</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="1">1</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="2">2</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="3">3</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="4">4</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="5">5</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="6">6</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="7">7</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="8">8</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="9">9</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="10">10</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="11">11</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="12">12</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="13">13</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="14">14</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="15">15</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="16">16</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="17">17</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="18">18</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="19">19</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="20">20</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="21">21</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="22">22</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="23">23</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="24">24</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="25">25</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="26">26</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="27">27</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="28">28</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="29">29</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="30">30</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="31">31</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="32">32</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="33">33</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="34">34</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="35">35</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="36">36</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="37">37</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="38">38</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="39">39</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="40">40</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="41">41</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="42">42</div>
+      <div class="casa" onclick="moverPinoManual(casaIndex)" data-casa-index="43">43</div>       
+      <div class="casa fim" onclick="moverPinoManual(casaIndex)" data-casa-index="44">Fim</div>
+    </div>
+
+    <!-- 📚 Navegação do Baralho -->
+    <div class="card mb-3 shadow-sm border-0">
+      <div class="card-body text-center">
+        <!-- <h6 class="card-subtitle mb-2 text-muted">Navegar Cartas</h6> -->
+        <div class="btn-group" role="group">
+          <button onclick="recuarCarta()" class="btn btn-outline-secondary">
+            Anterior ◀️
+          </button>
+          <button onclick="avancarCarta()" class="btn btn-outline-secondary">
+            ▶️ Próxima          
+        </div>
+        <button class="btn btn-primary" onclick="continuarTurno()">Continuar</button> 
+      </div>
+    </div>
+
+
+    <!-- Área de cartas -->
+    <section id="carta-area">
+      <div id="baralhos" class="mb-4 text-center">
+        <div id="carta" class="card-carta">
+          <h3>LEARN Board Game 2.0</h3>
+        </div>    
+        <div id="justificativa" class="mt-3 text-muted"></div>
+        <div id="resultado" class="mt-3"></div>        
+
+        <div class="baralho-cards d-flex flex-wrap justify-content-center gap-2 mb-3">
+          <button id="deck-decisao" class="btn" onclick="iniciarBaralho('decisao_arquitetural')">🎴 Decisão Arquitetural</button>
+          <button id="deck-atributo" class="btn" onclick="iniciarBaralho('atributo_qualidade')">🎴 Atributo de Qualidade</button>
+          <button id="deck-padrao" class="btn" onclick="iniciarBaralho('padrao_arquitetural')">🎴 Padrão Arquitetural</button>
+          <button id="deck-sorte" class="btn" onclick="iniciarBaralho('sorte_reves')">🎴 Sorte / Revés</button>
+        </div>
+        <div class="d-flex justify-content-center gap-3 mb-3">
+          <button onclick="embaralharCartas()" class="btn btn-outline-primary">🎲 Embaralhar Cartas</button>
+          <button onclick="ordenarCartas()" class="btn btn-outline-primary">🔢 Ordenar Cartas</button>
+        </div>
+        <div id="contador" class="fw-bold mb-3"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal do Ranking -->
+  <div class="modal fade" id="rankingModal" tabindex="-1" aria-labelledby="rankingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-sm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rankingModalLabel">Ranking dos Jogadores</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <ul id="listaRanking" class="list-group"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (opcional para interações futuras) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="data/cartas.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
