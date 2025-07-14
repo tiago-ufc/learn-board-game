@@ -148,7 +148,7 @@ function registrarEventosDasCasas() {
       const jogadorId = parseInt(e.dataTransfer.getData('text/plain'), 10);
       const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
       moverPinoManualPara(jogadorId, casaIndex); // Move no DOM e atualiza estado
-      console.log('drop');
+      // console.log('drop');
       // Limpa o estilo visual do pino movido
       document.querySelectorAll('.pino.movendo').forEach(pino => pino.classList.remove('movendo'));
     });
@@ -158,7 +158,7 @@ function registrarEventosDasCasas() {
         const jogadorId = parseInt(elementoArrastando.getAttribute('data-jogador-id'), 10);
         const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
         moverPinoManualPara(jogadorId, casaIndex);
-        console.log('click na casa — movimento manual concluído');
+        // console.log('click na casa — movimento manual concluído');
         elementoArrastando.classList.remove('movendo');
         elementoArrastando = null;
       }
@@ -169,7 +169,7 @@ function registrarEventosDasCasas() {
         const jogadorId = parseInt(elementoArrastando.getAttribute('data-jogador-id'), 10);
         const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
         moverPinoManualPara(jogadorId, casaIndex); // Atualiza posição visual e lógica
-        console.log('touchend casa');
+        // console.log('touchend casa');
         elementoArrastando.classList.remove('movendo');
         elementoArrastando = null;
       }
@@ -187,32 +187,32 @@ function registrarEventosDoPino(pino, i) {
     // pino.classList.add('movendo');
   });
   pino.addEventListener('dragstart', e => {
-    console.log('dragstart');
+    // console.log('dragstart');
     e.dataTransfer.setData('text/plain', pino.getAttribute('data-jogador-id'));
     // pino.classList.add('movendo');
     // // Cria clone visual
-    const dragClone = pino.cloneNode(true);
-    dragClone.style.cursor = 'grabbing';
-    dragClone.style.cursor = '-webkit-grabbing';
-    dragClone.style.cursor = '-moz-grabbing';
-    dragClone.style.transform = 'scale(1.6)';
-    dragClone.style.opacity = '0.9';
-    dragClone.style.position = 'absolute';
-    dragClone.style.pointerEvents = 'none';
-    dragClone.style.top = '-1000px'; // fora da tela
-    dragClone.style.width = '50px';
-    dragClone.style.height = '50px';
-    dragClone.style.fontSize = '1.4rem';
-    dragClone.style.borderRadius = '50%';
-    dragClone.style.lineHeight = '50px'; // centraliza texto
-    document.body.appendChild(dragClone);
+    // const dragClone = pino.cloneNode(true);
+    // dragClone.style.cursor = 'grabbing';
+    // dragClone.style.cursor = '-webkit-grabbing';
+    // dragClone.style.cursor = '-moz-grabbing';
+    // dragClone.style.transform = 'scale(1.6)';
+    // dragClone.style.opacity = '0.9';
+    // dragClone.style.position = 'absolute';
+    // dragClone.style.pointerEvents = 'none';
+    // dragClone.style.top = '-1000px'; // fora da tela
+    // dragClone.style.width = '50px';
+    // dragClone.style.height = '50px';
+    // dragClone.style.fontSize = '1.4rem';
+    // dragClone.style.borderRadius = '50%';
+    // dragClone.style.lineHeight = '50px'; // centraliza texto
+    // document.body.appendChild(dragClone);
     // Usa como imagem de arrasto
     e.dataTransfer.setDragImage(dragClone, 15, 15);
     // Remove depois de usar
     setTimeout(() => dragClone.remove(), 0);
   });
   pino.addEventListener('dragend', () => {
-    console.log('dragend');
+    // console.log('dragend');
     pino.classList.remove('movendo')   
   });
   // Toque
@@ -220,22 +220,22 @@ function registrarEventosDoPino(pino, i) {
     elementoArrastando = pino;
     const touch = e.touches[0];
     dragClone = pino.cloneNode(true);
-    dragClone.style.position = 'fixed';
-    dragClone.style.pointerEvents = 'none';
-    dragClone.style.opacity = '0.8';
-    dragClone.style.zIndex = '9999';
-    dragClone.style.width = '70px';
-    dragClone.style.height = '70px';
-    dragClone.style.lineHeight = '70px';
-    dragClone.style.fontSize = '1.4rem';
-    dragClone.style.borderRadius = '50%';
-    dragClone.style.boxShadow = '0 0 12px rgba(0,0,0,0.2)';
-    dragClone.style.backgroundColor = pino.style.backgroundColor;
-    dragClone.style.color = pino.style.color;
-    dragClone.style.transform = 'translate(-50%, -50%)';
-    document.body.appendChild(dragClone);
-    dragClone.style.left = `${touch.clientX}px`;
-    dragClone.style.top = `${touch.clientY}px`;
+    // dragClone.style.position = 'fixed';
+    // dragClone.style.pointerEvents = 'none';
+    // dragClone.style.opacity = '0.8';
+    // dragClone.style.zIndex = '9999';
+    // dragClone.style.width = '70px';
+    // dragClone.style.height = '70px';
+    // dragClone.style.lineHeight = '70px';
+    // dragClone.style.fontSize = '1.4rem';
+    // dragClone.style.borderRadius = '50%';
+    // dragClone.style.boxShadow = '0 0 12px rgba(0,0,0,0.2)';
+    // dragClone.style.backgroundColor = pino.style.backgroundColor;
+    // dragClone.style.color = pino.style.color;
+    // dragClone.style.transform = 'translate(-50%, -50%)';
+    // document.body.appendChild(dragClone);
+    // dragClone.style.left = `${touch.clientX}px`;
+    // dragClone.style.top = `${touch.clientY}px`;
     e.preventDefault();
 
   });
@@ -263,16 +263,10 @@ function registrarEventosDoPino(pino, i) {
     elementoArrastando = null;
   });
   pino.addEventListener('touchend', e => {
-    console.log('touchend no pino — ativando seleção manual');
+    // console.log('touchend no pino — ativando seleção manual');
     elementoArrastando = pino;
     pino.classList.remove('movendo');
   });
-  // pino.addEventListener('touchend', e => {
-  //   console.log('touchend');
-  //   pino.classList.remove('movendo')    
-  //   // elementoArrastando = null;
-  //   // e.preventDefault();
-  // });
 }
 
 window.addEventListener("load", () => {
