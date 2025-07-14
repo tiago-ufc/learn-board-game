@@ -123,7 +123,6 @@ function iniciarJogo() {
   jogadores = [];
   turnoAtual = 0;
   const qtd = parseInt(document.getElementById("qtdJogadores").value);
-
   for (let i = 0; i < qtd; i++) {
     const nome = document.getElementById(`jogador-${i}`).value || `Jogador ${i + 1}`;
     jogadores.push({ nome, posicao: 0, cor: coresPinos[i], id: i });
@@ -132,7 +131,6 @@ function iniciarJogo() {
       posicionarPino(i, jogadores[i].posicao);
     }, 0);
   }
-
   turnoAtual = (turnoAtual) % jogadores.length;
   const jogadorAtual = jogadores[turnoAtual];
   document.getElementById("carta").innerHTML = `
@@ -143,12 +141,29 @@ function iniciarJogo() {
   document.getElementById("carta").backgroundColor = 'white';
   destacarTurno();
   document.getElementById("jogadores-setup").style.display = "none";  
-  
 }
 
+
+let elementoArrastando = null;
+document.querySelectorAll('.pino').forEach(pino => {
+  pino.addEventListener('touchstart', e => {
+    elementoArrastando = pino;
+    e.preventDefault();
+  });
+});
+document.querySelectorAll('.casa').forEach(casa => {
+  casa.addEventListener('touchend', e => {
+    if (elementoArrastando) {
+      const jogadorId = parseInt(elementoArrastando.getAttribute('data-jogador-id'), 10);
+      const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
+      moverPinoManualPara(jogadorId, casaIndex);
+      elementoArrastando = null;
+    }
+    e.preventDefault();
+  });
+});
 document.querySelectorAll('.casa').forEach(casa => {
   casa.addEventListener('dragover', e => e.preventDefault());
-
   casa.addEventListener('drop', e => {
     e.preventDefault();
     const jogadorId = parseInt(e.dataTransfer.getData('text/plain'), 10);
@@ -156,7 +171,6 @@ document.querySelectorAll('.casa').forEach(casa => {
     moverPinoManualPara(jogadorId, casaIndex);
   });
 });
-
 
 function criarPino(i) {
   const tabuleiro = document.getElementById("tabuleiro");
@@ -207,7 +221,6 @@ function posicionarPino(jogadorId, casaIndex) {
 
 function destacarTurno() {
   document.querySelectorAll('.pino').forEach(p => p.classList.remove('ativo'));
-
   const atual = jogadores[turnoAtual];
   const pinoAtual = document.getElementById(`pino-${atual.id}`);
   if (pinoAtual) {
@@ -404,6 +417,7 @@ function exibirCarta(carta) {
           <button class="botao-verde" onclick="responder(true, ${carta.resposta}, ${carta.estrelas}, '${justificativaSegura}')">Verdadeira</button>
           <button class="botao-vermelho" onclick="responder(false, ${carta.resposta}, ${carta.estrelas}, '${justificativaSegura}')">Falsa</button>
         </div>
+        <div class="estrelas">${'⭐'.repeat(carta.estrelas)}</div>
         <!--
         <div class="campo-resposta">
           <p><strong>Resposta:</strong></p>          

@@ -27,7 +27,7 @@
     "afirmativa": "O modelo de dados identifica os recursos que precisam ser gerenciados pelo sistema.",
     "resposta": false,
     "justificativa": "O modelo de dados identifica as responsabilidades importantes: funções básicas do sistema, infraestrutura arquitetural e satisfação aos critérios de qualidade.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 4,
@@ -37,7 +37,7 @@
     "afirmativa": "O modelo de dados determina todos os custos que envolvem as tecnologias do projeto.",
     "resposta": false,
     "justificativa": "Determina como as responsabilidades serão alocadas em elementos estruturais e comportamentais (módulos, componentes e conectores).",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 5,
@@ -47,7 +47,7 @@
     "afirmativa": "Um exemplo de mapeamento é o realizado entre unidades de desenvolvimento (módulos) para unidades de execução (processos).",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 1
+    "estrelas": 2
   },
   {
     "id": 6,
@@ -57,7 +57,7 @@
     "afirmativa": "Uma arquitetura provê dois tipos de mapeamento: (1) entre os elementos em diferentes visões; (2) entre os elementos de software para elementos de hardware.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 7,
@@ -67,7 +67,7 @@
     "afirmativa": "Uma decisão binding time define o escopo, o ponto de ciclo de vida e ainda os mecanismos para atender à variação.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 8,
@@ -87,7 +87,7 @@
     "afirmativa": "As decisões de gerenciamento de recursos determinam as funções básicas do sistema e a infraestrutura arquitetural.",
     "resposta": false,
     "justificativa": "Identifica os recursos que devem ser gerenciados e determina os limites de cada um. Indicando o impacto da saturação em diferentes recursos.",
-    "estrelas": 1
+    "estrelas": 6
   },
   {
     "id": 10,
@@ -107,7 +107,7 @@
     "afirmativa": "As decisões de tecnologia de uma arquitetura dizem respeito somente ao software e não ao hardware.",
     "resposta": false,
     "justificativa": "O hardware tem relação com ambiente de desenvolvimento e implantação da aplicação, por isso as tecnologias adequadas devem ser selecionadas considerando software e hardware.",
-    "estrelas": 1
+    "estrelas": 2
   },
   {
     "id": 12,
@@ -117,7 +117,7 @@
     "afirmativa": "O modelo de dados é a decisão que define as entidades do sistema, como cada uma vai se relacionar e os atributos presentes em cada.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 13,
@@ -127,7 +127,7 @@
     "afirmativa": "Uma das representações do modelo de dados são os diagramas UML, como por exemplo o diagrama de Classes.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 14,
@@ -137,7 +137,7 @@
     "afirmativa": "Um exemplo de binding time são as configurações que o usuário pode realizar em uma aplicação para ativar novas funcionalidades ou recursos.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 1
+    "estrelas": 2
   },
   {
     "id": 15,
@@ -147,7 +147,7 @@
     "afirmativa": "No mapeamento entre elementos é definido qual protocolo de comunicação será utilizado entre os elementos.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 16,
@@ -157,7 +157,7 @@
     "afirmativa": "As decisões de binding time reduzem a complexidade do sistema e os cenários de uso propensos a erros.",
     "resposta": false,
     "justificativa": "As decisões de binding time não visam principalmente reduzir a complexidade ou evitar erros, mas sim determinar quando certas escolhas são feitas durante o desenvolvimento de um sistema ou programa.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 17,
@@ -177,7 +177,7 @@
     "afirmativa": "Esse tipo de decisão arquitetural não lida com o gerenciamento de falhas, pois para ele não é essencial montar uma estratégia em caso de falha de recursos.",
     "resposta": false,
     "justificativa": "O gerenciamento de recursos lida desde o descobrimento da falha até o seu conserto.",
-    "estrelas": 2
+    "estrelas": 6
   },
   {
     "id": 19,
@@ -187,7 +187,7 @@
     "afirmativa": "A CPU é um exemplo de recurso compartilhado considerado no gerenciamento de recursos.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 1
+    "estrelas": 2
   },
   {
     "id": 20,
@@ -207,7 +207,7 @@
     "afirmativa": "A alocação de responsabilidades determina os mecanismos de comunicação interna e externa ao sistema.",
     "resposta": false,
     "justificativa": "Essa ação é realizada com decisões de modelo de coordenação.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 22,
@@ -217,7 +217,7 @@
     "afirmativa": "Não se pode mensurar a disponibilidade de um sistema que esteja disponível 24 horas, em 7 dias por semana.",
     "resposta": false,
     "justificativa": "A disponibilidade pode ser medida pelo tempo percentual, o tempo para detectar uma falha, o tempo para reparar uma falha.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 23,
@@ -227,7 +227,7 @@
     "afirmativa": "A disponibilidade de um sistema está intimamente relacionada com a segurança, desempenho e qualquer outro atributo que envolva o conceito de falha inaceitável.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 24,
@@ -237,7 +237,7 @@
     "afirmativa": "Decisões de modelo de coordenação identificam e atribuem elementos em tempo de execução para processadores.",
     "resposta": false,
     "justificativa": "O modelo de coordenação identifica os elementos do sistema que devem ou não devem coordenar.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 25,
@@ -247,7 +247,7 @@
     "afirmativa": "É possível medir a interoperabilidade entre sistemas através de uma pré-análise do que se pode alterar no sistema.",
     "resposta": false,
     "justificativa": "É possível medi-la através da porcentagem de troca de informações processadas corretamente ou informações corretamente rejeitadas entre sistemas.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 26,
@@ -257,7 +257,7 @@
     "afirmativa": "As decisões de modelo de coordenação determinam as propriedades de comunicação como segurança, testabilidade e desempenho.",
     "resposta": false,
     "justificativa": "São exemplos de propriedades de comunicação: pontualidade, concorrência, completude, corretude e consistência.",
-    "estrelas": 1
+    "estrelas": 6
   },
   {
     "id": 27,
@@ -297,7 +297,7 @@
     "afirmativa": "Um exemplo de alocação de responsabilidades é definir que a validação de dados é da camada lógica, enquanto o acesso, armazenamento e recuperação de dados é da camada de acesso a dados.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 31,
@@ -307,7 +307,7 @@
     "afirmativa": "Quando o sistema tem falha de disponibilidade, ele se repara, sendo o mais transparente possível para o usuário.",
     "resposta": false,
     "justificativa": "O sistema busca abstrair o usuário dessa falha, mas não necessariamente se repara automaticamente.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 32,
@@ -327,7 +327,7 @@
     "afirmativa": "O modelo de coordenação deve ser projetado para minimizar os gargalos do sistema, pois impacta ativamente na escalabilidade.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 34,
@@ -337,7 +337,7 @@
     "afirmativa": "A interoperabilidade pode aumentar a eficiência operacional e reduzir custos para as organizações, uma vez que permite a troca eficaz de informações e recursos.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 35,
@@ -347,7 +347,7 @@
     "afirmativa": "Um exemplo de modelo de coordenação em um sistema de comércio eletrônico é gerenciar estoque, processamento de pagamento e notificações de envio para atender a um pedido.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 6
   },
   {
     "id": 36,
@@ -387,7 +387,7 @@
     "afirmativa": "O desempenho do sistema está geralmente associado diretamente à sua escalabilidade.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 40,
@@ -397,7 +397,7 @@
     "afirmativa": "É possível medir o desempenho de um sistema pelo grau de satisfação do usuário em utilizá-lo.",
     "resposta": false,
     "justificativa": "O desempenho de um sistema pode ser medido pela taxa de perda, instabilidade, vazão e latência.",
-    "estrelas": 1
+    "estrelas": 2
   },
   {
     "id": 41,
@@ -407,7 +407,7 @@
     "afirmativa": "Se um software gera poucas falhas com diversos testes e tipos de entradas diferentes, ele tem uma alta testabilidade.",
     "resposta": false,
     "justificativa": "Para ter uma alta testabilidade o software tende a gerar muitas falhas de acordo com os testes. A ocultação de falhas tende à baixa testabilidade.",
-    "estrelas": 1
+    "estrelas": 2
   },
   {
     "id": 42,
@@ -417,7 +417,7 @@
     "afirmativa": "É possível medir a segurança de um sistema pelo número de ataques detidos, pelo tempo de recuperação após um ataque bem-sucedido.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 43,
@@ -427,7 +427,7 @@
     "afirmativa": "A escolha da tecnologia determina quais tecnologias estão disponíveis para ajudar a alcançar os cenários de testabilidade que se aplicam à arquitetura.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 44,
@@ -447,7 +447,7 @@
     "afirmativa": "Por não ser possível medi-la, a usabilidade é uma das questões mais difíceis no desenvolvimento de um software.",
     "resposta": false,
     "justificativa": "É possível medir a usabilidade através do número de erros e de tarefas executadas pelo usuário, pela satisfação do usuário, pelo tempo de tarefa, etc.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 46,
@@ -457,7 +457,7 @@
     "afirmativa": "A usabilidade não está ligada à diminuição de impactos de erros do usuário, criando táticas para que o usuário não cometa certos erros.",
     "resposta": false,
     "justificativa": "A usabilidade é justamente um atributo que tenta garantir que o produto seja fácil de usar, evitando erros.",
-    "estrelas": 1
+    "estrelas": 2
   },
   {
     "id": 47,
@@ -477,7 +477,7 @@
     "afirmativa": "A modificabilidade está associada à coesão entre esses módulos, que é a dependência entre eles.",
     "resposta": false,
     "justificativa": "Essa forte ligação e acoplamento entre os módulos — alto acoplamento — é inimigo da modificabilidade.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 49,
@@ -497,7 +497,7 @@
     "afirmativa": "O desempenho de um sistema está basicamente relacionado aos eventos que podem ocorrer, quando eles podem ocorrer e o tempo de resposta a esses eventos.",
     "resposta": true,
     "justificativa": "",
-    "estrelas": 2
+    "estrelas": 4
   },
   {
     "id": 51,
@@ -512,16 +512,6 @@
   {
     "id": 52,
     "tipo": "atributo_qualidade",
-    "titulo": "Testabilidade",
-    "definicao": "Refere-se à facilidade com que o software pode ser feito para demonstrar suas falhas.",
-    "afirmativa": "O baixo acoplamento do código gera uma facilidade na testabilidade.",
-    "resposta": true,
-    "justificativa": "",
-    "estrelas": 2
-  },
-  {
-    "id": 53,
-    "tipo": "atributo_qualidade",
     "titulo": "Segurança",
     "definicao": "Refere-se à capacidade do sistema de proteger dados e informações contra acessos não autorizados.",
     "afirmativa": "O estado inseguro de um sistema não está só atrelado ao seu software, mas também às partes do seu hardware e do ambiente onde ele está alocado.",
@@ -530,24 +520,34 @@
     "estrelas": 2
   },
   {
-    "id": 54,
-    "tipo": "atributo_qualidade",
-    "titulo": "Testabilidade",
-    "definicao": "Refere-se à facilidade com que o software pode ser feito para demonstrar suas falhas.",
-    "afirmativa": "A testabilidade é somente a atividade de achar uma falha.",
-    "resposta": false,
-    "justificativa": "A testabilidade abrange desde a detecção do bug até sua correção.",
-    "estrelas": 1
-  },
-  {
-    "id": 55,
+    "id": 53,
     "tipo": "atributo_qualidade",
     "titulo": "Disponibilidade",
     "definicao": "Refere-se à capacidade de um sistema para mascarar um período de interrupção do serviço num intervalo de tempo.",
     "afirmativa": "Uma estratégia para garantir a segurança é não relatar imediatamente o estado de vulnerabilidade e sim, somente quando tudo estiver resolvido.",
     "resposta": false,
     "justificativa": "Essa estratégia de falha é justamente relatar imediatamente o estado de vulnerabilidade até solucionar o problema.",
-    "estrelas": 1
+    "estrelas": 4
+  },
+  {
+    "id": 54,
+    "tipo": "atributo_qualidade",
+    "titulo": "Testabilidade",
+    "definicao": "Refere-se à facilidade com que o software pode ser feito para demonstrar suas falhas.",
+    "afirmativa": "O baixo acoplamento do código gera uma facilidade na testabilidade.",
+    "resposta": true,
+    "justificativa": "",
+    "estrelas": 4
+  },
+  {
+    "id": 55,
+    "tipo": "atributo_qualidade",
+    "titulo": "Testabilidade",
+    "definicao": "Refere-se à facilidade com que o software pode ser feito para demonstrar suas falhas.",
+    "afirmativa": "A testabilidade é somente a atividade de achar uma falha.",
+    "resposta": false,
+    "justificativa": "A testabilidade abrange desde a detecção do bug até sua correção.",
+    "estrelas": 2
   },
   {
     "id": 56,
@@ -557,20 +557,10 @@
     "afirmativa": "A usabilidade não está ligada à diminuição de impactos de erros do usuário, criando táticas para que o usuário não cometa certos erros.",
     "resposta": false,
     "justificativa": "A usabilidade é justamente um atributo que tenta garantir que o produto seja fácil de usar, evitando erros.",
-    "estrelas": 1
+    "estrelas": 4
   },
   {
     "id": 57,
-    "tipo": "atributo_qualidade",
-    "titulo": "Usabilidade",
-    "definicao": "Refere-se à facilidade com que o usuário realiza uma tarefa desejada e com o tipo de suporte que o sistema oferece.",
-    "afirmativa": "Para considerar a usabilidade, é preciso que o sistema forneça as funcionalidades necessárias ao usuário e antecipe suas necessidades.",
-    "resposta": true,
-    "justificativa": "",
-    "estrelas": 2
-  },
-  {
-    "id": 58,
     "tipo": "padrao_arquitetural",
     "titulo": "Divisão em Camadas",
     "definicao": "Estruturas de aplicações que podem ser decompostas em subáreas (camadas).",
@@ -580,11 +570,21 @@
     "estrelas": 2
   },
   {
-    "id": 59,
+    "id": 58,
     "tipo": "padrao_arquitetural",
     "titulo": "Broker",
     "definicao": "Estruturação de sistemas distribuídos que precisam interagir através de invocação remota de serviços.",
     "afirmativa": "Brokers facilitam alterações dinâmicas nas conexões entre usuários e fornecedores.",
+    "resposta": true,
+    "justificativa": "",
+    "estrelas": 4
+  },
+  {
+    "id": 59,
+    "tipo": "atributo_qualidade",
+    "titulo": "Usabilidade",
+    "definicao": "Refere-se à facilidade com que o usuário realiza uma tarefa desejada e com o tipo de suporte que o sistema oferece.",
+    "afirmativa": "Para considerar a usabilidade, é preciso que o sistema forneça as funcionalidades necessárias ao usuário e antecipe suas necessidades.",
     "resposta": true,
     "justificativa": "",
     "estrelas": 2
