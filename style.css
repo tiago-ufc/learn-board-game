@@ -13,7 +13,7 @@ body {
 }
 
 .casa {  
-  user-select: none;  
+  user-select: none; 
   position: relative;
   width: 60px;
   height: 60px;
@@ -181,11 +181,18 @@ body {
   cursor: -moz-grabbing;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .pino.movendo {
+    width: 70px;
+    height: 70px;
+    font-size: 1.4rem;
+    line-height: 70px;
     transform: scale(2.5);
+    opacity: 0.9;
+    z-index: 21;
   }
 }
+
 
 @keyframes pulsar {
   from { box-shadow: 0 0 8px 2px #000; }

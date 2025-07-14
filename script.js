@@ -73,39 +73,6 @@ const corPorBaralho = {
 //   sorte_reves: "#4caf50"            // verde
 // };
 
-function registrarEventosDasCasas() {
-  document.querySelectorAll(".casa").forEach((casa, index) => {
-    const tipo = tipoPorCasa[index];
-    casa.setAttribute("data-baralho", tipo);
-    casa.style.backgroundColor = corPorBaralho[tipo] || "#e0e0e0";
-  });
-  document.querySelectorAll('.casa').forEach(casa => {
-    // Suporte para arrastar com mouse (PC)
-    casa.addEventListener('dragover', e => e.preventDefault());
-    casa.addEventListener('drop', e => {
-      e.preventDefault();
-      const jogadorId = parseInt(e.dataTransfer.getData('text/plain'), 10);
-      const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
-      moverPinoManualPara(jogadorId, casaIndex); // Move no DOM e atualiza estado
-      console.log('drop');
-      // Limpa o estilo visual do pino movido
-      document.querySelectorAll('.pino.movendo').forEach(pino => pino.classList.remove('movendo'));
-    });
-    // Suporte para toque em celular
-    casa.addEventListener('touchend', e => {
-      if (elementoArrastando) {
-        const jogadorId = parseInt(elementoArrastando.getAttribute('data-jogador-id'), 10);
-        const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
-        moverPinoManualPara(jogadorId, casaIndex); // Atualiza posição visual e lógica
-        console.log('touchend');
-        elementoArrastando.classList.remove('movendo');
-        elementoArrastando = null;
-      }
-      e.preventDefault();
-    });
-  });
-}
-
 window.addEventListener("load", () => {
   const salvo = localStorage.getItem("estadoLearnBoardGame");
   if (salvo) {
@@ -167,56 +134,144 @@ function iniciarJogo() {
   document.getElementById("jogadores-setup").style.display = "none";  
 }
 
+function registrarEventosDasCasas() {
+  document.querySelectorAll(".casa").forEach((casa, index) => {
+    const tipo = tipoPorCasa[index];
+    casa.setAttribute("data-baralho", tipo);
+    casa.style.backgroundColor = corPorBaralho[tipo] || "#e0e0e0";
+  });
+  document.querySelectorAll('.casa').forEach(casa => {
+    // Suporte para arrastar com mouse (PC)
+    casa.addEventListener('dragover', e => e.preventDefault());
+    casa.addEventListener('drop', e => {
+      e.preventDefault();
+      const jogadorId = parseInt(e.dataTransfer.getData('text/plain'), 10);
+      const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
+      moverPinoManualPara(jogadorId, casaIndex); // Move no DOM e atualiza estado
+      console.log('drop');
+      // Limpa o estilo visual do pino movido
+      document.querySelectorAll('.pino.movendo').forEach(pino => pino.classList.remove('movendo'));
+    });
+    // Suporte para toque em PC
+    casa.addEventListener('click', () => {
+      if (elementoArrastando) {
+        const jogadorId = parseInt(elementoArrastando.getAttribute('data-jogador-id'), 10);
+        const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
+        moverPinoManualPara(jogadorId, casaIndex);
+        console.log('click na casa — movimento manual concluído');
+        elementoArrastando.classList.remove('movendo');
+        elementoArrastando = null;
+      }
+    });
+    // Suporte para toque em celular
+    casa.addEventListener('touchend', e => {
+      if (elementoArrastando) {
+        const jogadorId = parseInt(elementoArrastando.getAttribute('data-jogador-id'), 10);
+        const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
+        moverPinoManualPara(jogadorId, casaIndex); // Atualiza posição visual e lógica
+        console.log('touchend casa');
+        elementoArrastando.classList.remove('movendo');
+        elementoArrastando = null;
+      }
+      e.preventDefault();
+    });
+  });
+}
+
 function registrarEventosDoPino(pino, i) {
   pino.setAttribute("draggable", "true");
   pino.setAttribute("data-jogador-id", i);
-  // Mouse
+  // Mouse  
+  pino.addEventListener('click', () => {
+    elementoArrastando = pino;
+    // pino.classList.add('movendo');
+  });
   pino.addEventListener('dragstart', e => {
     console.log('dragstart');
-    e.dataTransfer.setData('text/plain', pino.getAttribute('data-jogador-id'));    
-    pino.classList.add('movendo');
+    e.dataTransfer.setData('text/plain', pino.getAttribute('data-jogador-id'));
+    // pino.classList.add('movendo');
     // // Cria clone visual
-    // const dragClone = pino.cloneNode(true);
-    // dragClone.style.cursor = 'grabbing';
-    // dragClone.style.cursor = '-webkit-grabbing';
-    // dragClone.style.cursor = '-moz-grabbing';
-    // dragClone.style.transform = 'scale(1.6)';
-    // dragClone.style.opacity = '0.9';
-    // dragClone.style.position = 'absolute';
-    // dragClone.style.pointerEvents = 'none';
-    // dragClone.style.top = '-1000px'; // fora da tela
-    // dragClone.style.width = '50px';
-    // dragClone.style.height = '50px';
-    // dragClone.style.fontSize = '1.4rem';
-    // dragClone.style.borderRadius = '50%';
-    // dragClone.style.lineHeight = '50px'; // centraliza texto
-    // document.body.appendChild(dragClone);
-    // // Usa como imagem de arrasto
-    // e.dataTransfer.setDragImage(dragClone, 15, 15);
-    // // Remove depois de usar
-    // setTimeout(() => dragClone.remove(), 0);
+    const dragClone = pino.cloneNode(true);
+    dragClone.style.cursor = 'grabbing';
+    dragClone.style.cursor = '-webkit-grabbing';
+    dragClone.style.cursor = '-moz-grabbing';
+    dragClone.style.transform = 'scale(1.6)';
+    dragClone.style.opacity = '0.9';
+    dragClone.style.position = 'absolute';
+    dragClone.style.pointerEvents = 'none';
+    dragClone.style.top = '-1000px'; // fora da tela
+    dragClone.style.width = '50px';
+    dragClone.style.height = '50px';
+    dragClone.style.fontSize = '1.4rem';
+    dragClone.style.borderRadius = '50%';
+    dragClone.style.lineHeight = '50px'; // centraliza texto
+    document.body.appendChild(dragClone);
+    // Usa como imagem de arrasto
+    e.dataTransfer.setDragImage(dragClone, 15, 15);
+    // Remove depois de usar
+    setTimeout(() => dragClone.remove(), 0);
   });
   pino.addEventListener('dragend', () => {
     console.log('dragend');
-    pino.classList.remove('movendo')    
+    pino.classList.remove('movendo')   
   });
   // Toque
   pino.addEventListener('touchstart', e => {
     elementoArrastando = pino;
-    console.log('touchstart');
+    const touch = e.touches[0];
+    dragClone = pino.cloneNode(true);
+    dragClone.style.position = 'fixed';
+    dragClone.style.pointerEvents = 'none';
+    dragClone.style.opacity = '0.8';
+    dragClone.style.zIndex = '9999';
+    dragClone.style.width = '70px';
+    dragClone.style.height = '70px';
+    dragClone.style.lineHeight = '70px';
+    dragClone.style.fontSize = '1.4rem';
+    dragClone.style.borderRadius = '50%';
+    dragClone.style.boxShadow = '0 0 12px rgba(0,0,0,0.2)';
+    dragClone.style.backgroundColor = pino.style.backgroundColor;
+    dragClone.style.color = pino.style.color;
+    dragClone.style.transform = 'translate(-50%, -50%)';
+    document.body.appendChild(dragClone);
+    dragClone.style.left = `${touch.clientX}px`;
+    dragClone.style.top = `${touch.clientY}px`;
     e.preventDefault();
+
   });
   pino.addEventListener('touchmove', e => {
-    if (elementoArrastando === pino) {
-      console.log('touchmove');      
-      pino.classList.add('movendo');
+    if (dragClone) {
+      const touch = e.touches[0];
+      dragClone.style.left = `${touch.clientX}px`;
+      dragClone.style.top = `${touch.clientY}px`;
     }
+    e.preventDefault();
+  });
+  pino.addEventListener("touchend", e => {
+    if (dragClone) {
+      dragClone.remove();
+      dragClone = null;
+    }
+    const touch = e.changedTouches[0];
+    const destino = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (destino && destino.classList.contains("casa")) {
+      const casaIndex = parseInt(destino.getAttribute("data-casa-index"), 10);
+      const jogadorId = parseInt(pino.getAttribute("data-jogador-id"), 10);
+      moverPinoManualPara(jogadorId, casaIndex);
+    }
+    pino.classList.remove("movendo");
+    elementoArrastando = null;
+  });
+  pino.addEventListener('touchend', e => {
+    console.log('touchend no pino — ativando seleção manual');
+    elementoArrastando = pino;
+    pino.classList.remove('movendo');
   });
   // pino.addEventListener('touchend', e => {
   //   console.log('touchend');
   //   pino.classList.remove('movendo')    
-  //   elementoArrastando = null;
-  //   e.preventDefault();
+  //   // elementoArrastando = null;
+  //   // e.preventDefault();
   // });
 }
 
@@ -242,13 +297,12 @@ function criarPino(i) {
     // atualizarBaralhoDoJogador();
   };
   pino.addEventListener("click", ativarTurno);
-  pino.addEventListener("touchend", ativarTurno);
+  pino.addEventListener("touchstart", ativarTurno);
   // Adiciona ao DOM
   tabuleiro.appendChild(pino);
   // Registra eventos de drag/toque
   registrarEventosDoPino(pino, i);
 }
-
 
 function posicionarPino(jogadorId, casaIndex) {
   const casa = document.querySelector(`[data-casa-index="${casaIndex}"]`);
@@ -268,7 +322,6 @@ function posicionarPino(jogadorId, casaIndex) {
   pino.style.left = `${leftBase + offsetX}px`;
 }
 
-
 function destacarTurno() {
   document.querySelectorAll('.pino').forEach(p => p.classList.remove('ativo'));
   const atual = jogadores[turnoAtual];
@@ -277,7 +330,6 @@ function destacarTurno() {
     pinoAtual.classList.add('ativo');
   }
 }
-
 
 function responder(respostaUsuario, respostaCorreta, estrelas, justificativa) {
   if (!jogadores || jogadores.length === 0) {
