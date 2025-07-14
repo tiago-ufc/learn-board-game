@@ -12,7 +12,8 @@ body {
   gap: 8px;
 }
 
-.casa {
+.casa {  
+  user-select: none;  
   position: relative;
   width: 60px;
   height: 60px;
@@ -22,6 +23,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 8px;
+
 }
 
 .inicio { background-color: #b3e5fc; }
@@ -156,12 +158,29 @@ body {
 */
 
 .pino.ativo {
+  cursor: grab; /* opcional, mas ajuda visualmente */
   box-shadow: 0 0 12px 4px #000;
   transform: scale(1.2);
   border: 2px solid #fff;
   /* animation: pulsar 1s infinite alternate;*/
   z-index: 20;
 }
+
+.pino.movendo {
+  cursor: grabbing;
+  transform: scale(1.5);  
+  opacity: 0.9;
+  /* box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); */
+  /* transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;*/
+  z-index: 21;
+}
+
+.pino.movendo.active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
 
 @keyframes pulsar {
   from { box-shadow: 0 0 8px 2px #000; }

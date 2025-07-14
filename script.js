@@ -73,26 +73,50 @@ const corPorBaralho = {
 //   sorte_reves: "#4caf50"            // verde
 // };
 
-document.querySelectorAll(".casa").forEach((casa, index) => {
-  const tipo = tipoPorCasa[index];
-  casa.setAttribute("data-baralho", tipo);
-  casa.style.backgroundColor = corPorBaralho[tipo] || "#e0e0e0";
-});
+function registrarEventosDasCasas() {
+  document.querySelectorAll(".casa").forEach((casa, index) => {
+    const tipo = tipoPorCasa[index];
+    casa.setAttribute("data-baralho", tipo);
+    casa.style.backgroundColor = corPorBaralho[tipo] || "#e0e0e0";
+  });
+  document.querySelectorAll('.casa').forEach(casa => {
+    // Suporte para arrastar com mouse (PC)
+    casa.addEventListener('dragover', e => e.preventDefault());
+    casa.addEventListener('drop', e => {
+      e.preventDefault();
+      const jogadorId = parseInt(e.dataTransfer.getData('text/plain'), 10);
+      const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
+      moverPinoManualPara(jogadorId, casaIndex); // Move no DOM e atualiza estado
+      console.log('drop');
+      // Limpa o estilo visual do pino movido
+      document.querySelectorAll('.pino.movendo').forEach(pino => pino.classList.remove('movendo'));
+    });
+    // Suporte para toque em celular
+    casa.addEventListener('touchend', e => {
+      if (elementoArrastando) {
+        const jogadorId = parseInt(elementoArrastando.getAttribute('data-jogador-id'), 10);
+        const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
+        moverPinoManualPara(jogadorId, casaIndex); // Atualiza posição visual e lógica
+        console.log('touchend');
+        elementoArrastando.classList.remove('movendo');
+        elementoArrastando = null;
+      }
+      e.preventDefault();
+    });
+  });
+}
 
 window.addEventListener("load", () => {
   const salvo = localStorage.getItem("estadoLearnBoardGame");
   if (salvo) {
     const estado = JSON.parse(salvo);
-
     jogadores = estado.jogadores;
     turnoAtual = estado.turnoAtual;
     estadoPorBaralho = estado.estadoPorBaralho;
-
     jogadores.forEach(jogador => {
       criarPino(jogador.id);
       posicionarPino(jogador.id, jogador.posicao);
     });
-
     destacarTurno();
     document.getElementById("jogadores-setup").style.display = "none";
   }
@@ -143,42 +167,61 @@ function iniciarJogo() {
   document.getElementById("jogadores-setup").style.display = "none";  
 }
 
-
-let elementoArrastando = null;
-// ⬇Suporte para mouse (PC)
-document.querySelectorAll('.pino').forEach(pino => {
-  pino.setAttribute('draggable', 'true');
+function registrarEventosDoPino(pino, i) {
+  pino.setAttribute("draggable", "true");
+  pino.setAttribute("data-jogador-id", i);
+  // Mouse
   pino.addEventListener('dragstart', e => {
-    e.dataTransfer.setData('text/plain', pino.getAttribute('data-jogador-id'));
+    console.log('dragstart');
+    e.dataTransfer.setData('text/plain', pino.getAttribute('data-jogador-id'));    
+    pino.classList.add('movendo');
+    // Cria clone visual
+    const dragClone = pino.cloneNode(true);
+    dragClone.style.cursor = 'grabbing';
+    dragClone.style.cursor = '-webkit-grabbing';
+    dragClone.style.cursor = '-moz-grabbing';
+    dragClone.style.transform = 'scale(1.6)';
+    dragClone.style.opacity = '0.9';
+    dragClone.style.position = 'absolute';
+    dragClone.style.pointerEvents = 'none';
+    dragClone.style.top = '-1000px'; // fora da tela
+    dragClone.style.width = '50px';
+    dragClone.style.height = '50px';
+    dragClone.style.fontSize = '1.4rem';
+    dragClone.style.borderRadius = '50%';
+    dragClone.style.lineHeight = '50px'; // centraliza texto
+    document.body.appendChild(dragClone);
+    // Usa como imagem de arrasto
+    e.dataTransfer.setDragImage(dragClone, 15, 15);
+    // Remove depois de usar
+    setTimeout(() => dragClone.remove(), 0);
   });
-});
-
-document.querySelectorAll('.casa').forEach(casa => {
-  casa.addEventListener('dragover', e => e.preventDefault());
-  casa.addEventListener('drop', e => {
-    e.preventDefault();
-    const jogadorId = parseInt(e.dataTransfer.getData('text/plain'), 10);
-    const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
-    moverPinoManualPara(jogadorId, casaIndex);
+  pino.addEventListener('dragend', () => {
+    console.log('dragend');
+    pino.classList.remove('movendo')    
   });
-});
-// Suporte para toque (celular)
-document.querySelectorAll('.pino').forEach(pino => {
+  // Toque
   pino.addEventListener('touchstart', e => {
     elementoArrastando = pino;
+    console.log('touchstart');
     e.preventDefault();
   });
-});
-document.querySelectorAll('.casa').forEach(casa => {
-  casa.addEventListener('touchend', e => {
-    if (elementoArrastando) {
-      const jogadorId = parseInt(elementoArrastando.getAttribute('data-jogador-id'), 10);
-      const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
-      moverPinoManualPara(jogadorId, casaIndex);
-      elementoArrastando = null;
+  pino.addEventListener('touchmove', e => {
+    if (elementoArrastando === pino) {
+      console.log('touchmove');      
+      pino.classList.add('movendo');
     }
+  });
+  pino.addEventListener('touchend', e => {
+    console.log('touchend');
+    pino.classList.remove('movendo')    
+    elementoArrastando = null;
     e.preventDefault();
   });
+}
+
+window.addEventListener("load", () => {
+  registrarEventosDasCasas();
 });
 
 function criarPino(i) {
@@ -200,6 +243,7 @@ function criarPino(i) {
   pino.addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("text/plain", i); // salva o id do jogador
   });
+  registrarEventosDoPino(pino, i);
 }
 
 
@@ -207,22 +251,16 @@ function posicionarPino(jogadorId, casaIndex) {
   const casa = document.querySelector(`[data-casa-index="${casaIndex}"]`);
   const pino = document.getElementById(`pino-${jogadorId}`);
   const tabuleiro = document.getElementById("tabuleiro");
-
   if (!casa || !pino) return; // evita erros se algo não existir
-
   const topBase = casa.offsetTop;
   const leftBase = casa.offsetLeft;
   const largura = casa.offsetWidth;
   const altura = casa.offsetHeight;
-
   const slot = jogadorId % 9;
-
   const col = slot % 3;
   const row = Math.floor(slot / 3);
-
   const offsetX = (largura / 3) * col + (largura / 12);
   const offsetY = (altura / 3) * row + (altura / 12);
-
   pino.style.top = `${topBase + offsetY}px`;
   pino.style.left = `${leftBase + offsetX}px`;
 }
@@ -338,27 +376,22 @@ function embaralharArray(arr) {
 
 function mostrarCarta() {
   if (!baralhoAtual) return;
-
   const estado = estadoPorBaralho[baralhoAtual];
   const fila = estado.fila;
   const indice = estado.indice;
-
   if (!fila || fila.length === 0) {
     alert("Nenhuma carta disponível. Embaralhe ou selecione um baralho.");
     return;
   }
-
   if (indice >= fila.length) {
-    alert("Você chegou ao fim do baralho!");
+    alert("Você chegou ao fim do baralho! As cartas serão embaralhadas automaticamente.");
+    embaralharCartas();
     return;
   }
-
   const carta = fila[indice];
   estado.indice++;
-
   document.getElementById("contador").textContent =
     `Carta ${estado.indice} de ${fila.length}`;
-
   exibirCarta(carta);
 }
 
@@ -367,7 +400,7 @@ function recuarCarta() {
 
   const estado = estadoPorBaralho[baralhoAtual];
   if (estado.indice <= 1) {
-    alert("Você está na primeira carta!");
+    /* alert("Você está na primeira carta!"); */
     return;
   }
 
@@ -377,13 +410,12 @@ function recuarCarta() {
 
 function avancarCarta() {
   if (!baralhoAtual) return;
-
   const estado = estadoPorBaralho[baralhoAtual];
   if (estado.indice >= estado.fila.length) {
-    alert("Você chegou ao fim do baralho!");
+    alert("Você chegou ao fim do baralho! As cartas serão embaralhadas automaticamente.");
+    embaralharCartas();
     return;
   }
-
   mostrarCarta();
 }
 
