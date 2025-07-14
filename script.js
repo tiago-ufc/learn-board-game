@@ -212,12 +212,12 @@ function registrarEventosDoPino(pino, i) {
       pino.classList.add('movendo');
     }
   });
-  pino.addEventListener('touchend', e => {
-    console.log('touchend');
-    pino.classList.remove('movendo')    
-    elementoArrastando = null;
-    e.preventDefault();
-  });
+  // pino.addEventListener('touchend', e => {
+  //   console.log('touchend');
+  //   pino.classList.remove('movendo')    
+  //   elementoArrastando = null;
+  //   e.preventDefault();
+  // });
 }
 
 window.addEventListener("load", () => {
