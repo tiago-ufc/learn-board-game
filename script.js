@@ -145,6 +145,24 @@ function iniciarJogo() {
 
 
 let elementoArrastando = null;
+// ⬇Suporte para mouse (PC)
+document.querySelectorAll('.pino').forEach(pino => {
+  pino.setAttribute('draggable', 'true');
+  pino.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', pino.getAttribute('data-jogador-id'));
+  });
+});
+
+document.querySelectorAll('.casa').forEach(casa => {
+  casa.addEventListener('dragover', e => e.preventDefault());
+  casa.addEventListener('drop', e => {
+    e.preventDefault();
+    const jogadorId = parseInt(e.dataTransfer.getData('text/plain'), 10);
+    const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
+    moverPinoManualPara(jogadorId, casaIndex);
+  });
+});
+// Suporte para toque (celular)
 document.querySelectorAll('.pino').forEach(pino => {
   pino.addEventListener('touchstart', e => {
     elementoArrastando = pino;
@@ -160,15 +178,6 @@ document.querySelectorAll('.casa').forEach(casa => {
       elementoArrastando = null;
     }
     e.preventDefault();
-  });
-});
-document.querySelectorAll('.casa').forEach(casa => {
-  casa.addEventListener('dragover', e => e.preventDefault());
-  casa.addEventListener('drop', e => {
-    e.preventDefault();
-    const jogadorId = parseInt(e.dataTransfer.getData('text/plain'), 10);
-    const casaIndex = parseInt(casa.getAttribute('data-casa-index'), 10);
-    moverPinoManualPara(jogadorId, casaIndex);
   });
 });
 
