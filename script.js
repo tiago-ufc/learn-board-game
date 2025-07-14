@@ -175,26 +175,26 @@ function registrarEventosDoPino(pino, i) {
     console.log('dragstart');
     e.dataTransfer.setData('text/plain', pino.getAttribute('data-jogador-id'));    
     pino.classList.add('movendo');
-    // Cria clone visual
-    const dragClone = pino.cloneNode(true);
-    dragClone.style.cursor = 'grabbing';
-    dragClone.style.cursor = '-webkit-grabbing';
-    dragClone.style.cursor = '-moz-grabbing';
-    dragClone.style.transform = 'scale(1.6)';
-    dragClone.style.opacity = '0.9';
-    dragClone.style.position = 'absolute';
-    dragClone.style.pointerEvents = 'none';
-    dragClone.style.top = '-1000px'; // fora da tela
-    dragClone.style.width = '50px';
-    dragClone.style.height = '50px';
-    dragClone.style.fontSize = '1.4rem';
-    dragClone.style.borderRadius = '50%';
-    dragClone.style.lineHeight = '50px'; // centraliza texto
-    document.body.appendChild(dragClone);
-    // Usa como imagem de arrasto
-    e.dataTransfer.setDragImage(dragClone, 15, 15);
-    // Remove depois de usar
-    setTimeout(() => dragClone.remove(), 0);
+    // // Cria clone visual
+    // const dragClone = pino.cloneNode(true);
+    // dragClone.style.cursor = 'grabbing';
+    // dragClone.style.cursor = '-webkit-grabbing';
+    // dragClone.style.cursor = '-moz-grabbing';
+    // dragClone.style.transform = 'scale(1.6)';
+    // dragClone.style.opacity = '0.9';
+    // dragClone.style.position = 'absolute';
+    // dragClone.style.pointerEvents = 'none';
+    // dragClone.style.top = '-1000px'; // fora da tela
+    // dragClone.style.width = '50px';
+    // dragClone.style.height = '50px';
+    // dragClone.style.fontSize = '1.4rem';
+    // dragClone.style.borderRadius = '50%';
+    // dragClone.style.lineHeight = '50px'; // centraliza texto
+    // document.body.appendChild(dragClone);
+    // // Usa como imagem de arrasto
+    // e.dataTransfer.setDragImage(dragClone, 15, 15);
+    // // Remove depois de usar
+    // setTimeout(() => dragClone.remove(), 0);
   });
   pino.addEventListener('dragend', () => {
     console.log('dragend');
@@ -230,19 +230,22 @@ function criarPino(i) {
   pino.classList.add("pino");
   pino.id = `pino-${i}`;
   pino.style.backgroundColor = jogadores[i].cor;
-
   const letra = jogadores[i].nome.trim()[0].toUpperCase();
   pino.textContent = `${letra}${i + 1}`; // Exemplo: J1, A2
-  tabuleiro.appendChild(pino);
-  pino.onclick = () => {
+  // Define atributos úteis
+  pino.setAttribute("draggable", "true");
+  pino.setAttribute("data-jogador-id", i);
+  // Permite seleção por clique e toque
+  const ativarTurno = () => {
     turnoAtual = i;
     destacarTurno();
-    // atualizarBaralhoDoJogador(); 
+    // atualizarBaralhoDoJogador();
   };
-  pino.setAttribute("draggable", "true");
-  pino.addEventListener("dragstart", (e) => {
-    e.dataTransfer.setData("text/plain", i); // salva o id do jogador
-  });
+  pino.addEventListener("click", ativarTurno);
+  pino.addEventListener("touchend", ativarTurno);
+  // Adiciona ao DOM
+  tabuleiro.appendChild(pino);
+  // Registra eventos de drag/toque
   registrarEventosDoPino(pino, i);
 }
 

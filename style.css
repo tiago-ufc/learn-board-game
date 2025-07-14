@@ -44,6 +44,8 @@ body {
   font-size: 14px;
   color: white;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 .pino::before {
   content: '';
@@ -122,8 +124,6 @@ body {
   color: #1b5e20;
 }
 
-
-
 .baralho-cards button.active {
   box-shadow: 0 0 5px #000;
   transform: scale(1.05);
@@ -181,6 +181,11 @@ body {
   cursor: -moz-grabbing;
 }
 
+@media (max-width: 768px){
+  .pino.movendo {
+    transform: scale(2.5);
+  }
+}
 
 @keyframes pulsar {
   from { box-shadow: 0 0 8px 2px #000; }
