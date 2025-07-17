@@ -136,7 +136,7 @@ body {
 }
 
 #resultado {
-  margin: 20px auto;
+  margin: 5px auto;
   padding: 12px;
   border-radius: 10px;
   width: 320px;
@@ -296,4 +296,11 @@ body {
 
 .bi-trophy-fill{
   font-size:60px !important;
+}
+
+.btn-menu-carta {
+  min-width: 110px;
+}
+.btn-menu-adm {
+  min-width: 185px;
 }

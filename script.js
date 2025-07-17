@@ -651,15 +651,11 @@ function confirmarReinicio() {
 function atualizarRankingModal() {
   const lista = document.getElementById("listaRanking");
   lista.innerHTML = "";
-
   const ranking = [...jogadores].sort((a, b) => b.posicao - a.posicao);
-
   ranking.forEach((jogador, index) => {
     const item = document.createElement("li");
-    item.className = "list-group-item d-flex justify-content-between align-items-center";
-
+    item.className = "list-group-item d-flex justify-content-between align-items-center";    
     const apelido = jogador.nome.trim()[0].toUpperCase() + (jogador.id + 1);
-
     item.innerHTML = `
       <strong>${index + 1}º</strong>
       <span>${jogador.nome} <span class="text-muted">(${apelido})</span></span>
@@ -695,7 +691,8 @@ function continuarTurno() {
   const jogadorAtual = jogadores[turnoAtual];
   const tipoObrigatorio = tipoPorCasa[jogadorAtual.posicao];
   const apelido = jogadorAtual.nome.trim()[0].toUpperCase() + (jogadorAtual.id + 1);
-  document.getElementById("resultado").innerText = `${jogadorAtual.nome} (${apelido})`;  
+  document.getElementById("resultado").innerText = `${jogadorAtual.nome} (${apelido})`;
+  document.getElementById("justificativa").innerText = "";
   
   // Se estiver na casa 0 (início) ou "sorte_reves", não iniciar automaticamente
   if (tipoObrigatorio === "inicio") {
@@ -711,7 +708,7 @@ function continuarTurno() {
   if (tipoObrigatorio === "fim"){  
     document.getElementById("carta").innerHTML = `
       <div class="carta-centralizada">
-        <p class=""><strong>Parabéns ${jogadorAtual.nome}<br>Você concluiu o Game!</strong>.</p>        
+        <p class=""><strong>Parabéns ${jogadorAtual.nome}<br>Você concluiu o jogo!</strong></p>        
         <p><i class="bi bi-trophy h1"></i></p>
       </div>
     `;
