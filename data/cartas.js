@@ -47,7 +47,7 @@ const todasCartas = {
       "definicao": "Representa o mapeamento dos elementos de uma arquitetura.",
       "afirmativa": "Um exemplo de mapeamento é o realizado entre unidades de desenvolvimento (módulos) para unidades de execução (processos).",
       "resposta": true,
-      "justificativa": "",
+      "justificativa": "Verdadeiro. outro exemplo é o mapeamento de processos para CPUs específicas onde esses processos são executados.",
       "estrelas": 2
     },
     {
@@ -330,7 +330,7 @@ const todasCartas = {
       "definicao": "Refere-se à capacidade de um sistema para mascarar um período de interrupção do serviço num intervalo de tempo.",
       "afirmativa": "Quando o sistema tem falha de disponibilidade, ele se repara, sendo o mais transparente possível para o usuário.",
       "resposta": false,
-      "justificativa": "O sistema busca abstrair o usuário dessa falha, mas não necessariamente se repara automaticamente.",
+      "justificativa": "O sistema busca abstrair o usuário dessa falha.",
       "estrelas": 4
     },
     {
@@ -519,8 +519,8 @@ const todasCartas = {
       "titulo": "Testabilidade",
       "definicao": "Refere-se à facilidade com que o software pode ser feito para demonstrar suas falhas.",
       "afirmativa": "O baixo acoplamento do código gera uma facilidade na testabilidade.",
-      "resposta": true,
-      "justificativa": "",
+      "resposta": false,
+      "justificativa": "False, para ter uma alta testabilidade o software tende a gerar muitas falhas de acordo com os testes. A ocultação de falhas tende à baixa testabilidade.",
       "estrelas": 4
     },
     {
@@ -743,7 +743,7 @@ const todasCartas = {
       "definicao": "Aplicações divididas em três componentes: Model, View e Controller.",
       "afirmativa": "A arquitetura MVC tende a ter um baixo acoplamento entre a Controller e Views, diminuindo assim sua complexidade.",
       "resposta": false,
-      "justificativa": "O nível de acoplamento entre a Controller e Views pode variar de acordo com a implementação.",
+      "justificativa": "Falso, o nível de acoplamento entre a Controller e Views pode variar de acordo com a implementação, podendo ser um sistema de baixo acoplamento, como também um com acoplamento alto.",
       "estrelas": 2
     },
 
