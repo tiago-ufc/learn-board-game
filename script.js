@@ -691,7 +691,7 @@ function continuarTurno() {
   const jogadorAtual = jogadores[turnoAtual];
   const tipoObrigatorio = tipoPorCasa[jogadorAtual.posicao];
   const apelido = jogadorAtual.nome.trim()[0].toUpperCase() + (jogadorAtual.id + 1);
-  document.getElementById("resultado").innerText = `${jogadorAtual.nome} (${apelido})`;
+  document.getElementById("resultado").innerText = `${apelido} (${jogadorAtual.nome})`;
   document.getElementById("justificativa").innerText = "";
   
   // Se estiver na casa 0 (início) ou "sorte_reves", não iniciar automaticamente
