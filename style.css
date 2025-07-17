@@ -200,14 +200,12 @@ body {
 }
 
 .carta-centralizada {
-  display: flex;
+  /* font-size: 60px; */
+  margin-top: 40%;
   align-items: center;
   justify-content: center;
-  height: 200px;
   text-align: center;
 }
-
-
 
 /*------------------------------------*/
 .card-carta {
@@ -274,7 +272,6 @@ body {
   font-size: 0.9rem;
 }
 
-
 .titulo-carta {
   padding: 8px 12px;
   font-size: 1.3rem;
@@ -295,4 +292,8 @@ body {
 .b-border {
   border-bottom: 1px solid #ccc;
   padding-bottom: 8px;
+}
+
+.bi-trophy-fill{
+  font-size:60px !important;
 }

@@ -126,7 +126,7 @@ function iniciarJogo() {
   const jogadorAtual = jogadores[turnoAtual];
   document.getElementById("carta").innerHTML = `
     <div class="carta-centralizada">
-      <p class="text-muted">Selecione um baralho para o jogador <strong>${jogadorAtual.nome}</strong>.</p>
+      <p class="text-muted"><strong>Selecione um baralho para o jogador "${jogadorAtual.nome}"</strong>.</p>
     </div>
   `;
   document.getElementById("carta").backgroundColor = 'white';
@@ -207,9 +207,9 @@ function registrarEventosDoPino(pino, i) {
     // dragClone.style.lineHeight = '50px'; // centraliza texto
     // document.body.appendChild(dragClone);
     // Usa como imagem de arrasto
-    e.dataTransfer.setDragImage(dragClone, 15, 15);
+    // e.dataTransfer.setDragImage(dragClone, 15, 15);
     // Remove depois de usar
-    setTimeout(() => dragClone.remove(), 0);
+    // setTimeout(() => dragClone.remove(), 0);
   });
   pino.addEventListener('dragend', () => {
     // console.log('dragend');
@@ -669,37 +669,58 @@ function atualizarRankingModal() {
   });
 }
 
+
+function corClaraDoJogador(indice, percentual = 0.3) {
+  const hex = coresPinos[indice].replace("#", "");
+  let r = parseInt(hex.slice(0, 2), 16);
+  let g = parseInt(hex.slice(2, 4), 16);
+  let b = parseInt(hex.slice(4, 6), 16);
+
+  r = Math.min(255, Math.floor(r + (255 - r) * percentual));
+  g = Math.min(255, Math.floor(g + (255 - g) * percentual));
+  b = Math.min(255, Math.floor(b + (255 - b) * percentual));
+
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+
 // Atualiza o ranking sempre que abrir o modal
 document.getElementById("rankingModal").addEventListener("show.bs.modal", atualizarRankingModal);
 
 function continuarTurno() {
   turnoAtual = (turnoAtual + 1) % jogadores.length;
   destacarTurno();
+  reiniciarCronometro();
+  
   const jogadorAtual = jogadores[turnoAtual];
   const tipoObrigatorio = tipoPorCasa[jogadorAtual.posicao];
+  const apelido = jogadorAtual.nome.trim()[0].toUpperCase() + (jogadorAtual.id + 1);
+  document.getElementById("resultado").innerText = `${jogadorAtual.nome} (${apelido})`;  
+  
   // Se estiver na casa 0 (início) ou "sorte_reves", não iniciar automaticamente
   if (tipoObrigatorio === "inicio") {
     document.getElementById("carta").innerHTML = `
     <div class="carta-centralizada">
-      <p class="text-muted">Selecione um baralho para o jogador <strong>${jogadorAtual.nome}</strong>.</p>
+      <p class="text-muted"><strong>Selecione um baralho para:<br>${jogadorAtual.nome}</strong>.</p>
     </div>
     `;
-    document.getElementById("carta").backgroundColor = 'white';
+    document.getElementById("carta").style.backgroundColor = 'white';    
     return;
   }
 
   if (tipoObrigatorio === "fim"){  
     document.getElementById("carta").innerHTML = `
       <div class="carta-centralizada">
-        <p class="">Parabéns <strong>${jogadorAtual.nome} é o Campeão!</strong>.</p>
+        <p class=""><strong>Parabéns ${jogadorAtual.nome}<br>Você concluiu o Game!</strong>.</p>        
+        <p><i class="bi bi-trophy h1"></i></p>
       </div>
-    `;  
+    `;
+    const corClara = corClaraDoJogador(jogadorAtual.id, 0.7);
+    document.getElementById("carta").style.backgroundColor = corClara;    
     return;
   }
-
   iniciarBaralho(tipoObrigatorio); // inicia baralho obrigatório
-  // atualizarEstiloBotaoSelecionado(tipoObrigatorio); // marca botão ativo      
-  document.getElementById("resultado").innerText = "";  
+  // atualizarEstiloBotaoSelecionado(tipoObrigatorio); // marca botão ativo   
 }
 
 window.addEventListener("resize", () => {
@@ -707,3 +728,69 @@ window.addEventListener("resize", () => {
     posicionarPino(jogador.id, jogador.posicao);
   });
 });
+
+
+
+let milliseconds = 0;
+let interval = null;
+let isRunning = false;
+
+function updateDisplay() {
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+  const mins = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+  const secs = String(totalSeconds % 60).padStart(2, '0');
+  const ms = String(Math.floor((milliseconds % 1000) / 10)).padStart(2, '0');
+
+  document.getElementById('display').childNodes[0].textContent = `${hrs}:${mins}:${secs}`;
+  document.getElementById('msDisplay').textContent = ms;
+}
+
+document.getElementById('startPauseBtn').addEventListener('click', function () {
+  const icon = this.querySelector('i');
+  const resetIcon = document.getElementById('resetBtn').querySelector('i');
+
+  if (!isRunning) {
+    interval = setInterval(() => {
+      milliseconds += 10;
+      updateDisplay();
+    }, 10);
+    icon.className = 'bi bi-pause-fill';
+    resetIcon.className = 'bi bi-arrow-repeat'; // vira reload
+    isRunning = true;
+  } else {
+    clearInterval(interval);
+    icon.className = 'bi bi-play-fill';
+    resetIcon.className = 'bi bi-stop-fill'; // vira stop
+    isRunning = false;
+  }
+});
+
+document.getElementById('resetBtn').addEventListener('click', function () {
+  const icon = document.getElementById('startPauseBtn').querySelector('i');
+
+  milliseconds = 0;
+  updateDisplay();
+
+  if (isRunning) {
+    // continua rodando do zero
+    clearInterval(interval);
+    interval = setInterval(() => {
+      milliseconds += 10;
+      updateDisplay();
+    }, 10);
+  }
+});
+
+function reiniciarCronometro() {
+  clearInterval(interval);
+  milliseconds = 0;
+  updateDisplay();
+  interval = setInterval(() => {
+    milliseconds += 10;
+    updateDisplay();
+  }, 10);
+  isRunning = true;
+  document.getElementById('startPauseBtn').querySelector('i').className = 'bi bi-pause-fill';
+  document.getElementById('resetBtn').querySelector('i').className = 'bi bi-arrow-repeat';
+}
