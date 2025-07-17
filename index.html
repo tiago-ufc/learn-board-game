@@ -46,22 +46,18 @@
       <div class="card-body text-center">
         <!-- <h6 class="card-subtitle mb-2 text-muted">Histórico de Jogadas</h6> -->
         <div class="btn-group" role="group">
-          <button onclick="desfazerMovimento()" class="btn btn-outline-danger">
-            Desfazer ↩️
-          </button>
-          <button onclick="refazerMovimento()" class="btn btn-outline-success">
-            ↪️ Refazer
-          </button>
+          <button onclick="desfazerMovimento()" class="btn btn-outline-danger btn-menu-game">Desfazer ↩️</button>
+          <button onclick="refazerMovimento()" class="btn btn-outline-success btn-menu-game">↪️ Refazer</button>
         </div>
         <!-- Botão para abrir o ranking -->
-        <button class="btn btn-outline-danger" onclick="confirmarReinicio()">🧹 Reiniciar Jogo</button>
-        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#rankingModal">📊 Ranking</button>        
+        <button class="btn btn-outline-danger btn-menu-game2" onclick="confirmarReinicio()">🧹 Reiniciar Jogo</button>
+        <button class="btn btn-outline-primary btn-menu-game2" data-bs-toggle="modal" data-bs-target="#rankingModal">📊 Ranking</button>        
       </div>
     </div>
 
     <!-- Tabuleiro -->
     <!-- <div id="tabuleiro" class="d-flex flex-wrap justify-content-center gap-2 my-3"> -->
-    <div id="tabuleiro" class="d-flex flex-wrap justify-content-center mb-4">
+    <div id="tabuleiro" class="d-flex flex-wrap justify-content-center mt-2 mb-2">
     <!-- <div class="casa col-3 col-sm-2 col-md-1">1</div> -->
       <div class="casa inicio" data-casa-index="0">Início</div>
       <div class="casa" data-casa-index="1">1</div>
@@ -115,9 +111,9 @@
       <div class="card-body p-0 text-center">    
         <div class="btn-group mt-1" role="group">
           <button onclick="recuarCarta()" class="btn btn-outline-secondary btn-menu-carta">Anterior ◀️</button>
-          <button onclick="avancarCarta()" class="btn btn-outline-secondary btn-menu-carta">▶️ Próxima</button>
-          <button onclick="continuarTurno()" class="btn btn-primary btn-menu-carta">Continuar</button>
+          <button onclick="avancarCarta()" class="btn btn-outline-secondary btn-menu-carta">▶️ Próxima</button>          
         </div> 
+        <button onclick="continuarTurno()" class="btn btn-primary btn-menu-carta mt-1">Continuar</button>
         <div class="d-flex align-items-baseline justify-content-center">
           <div class="d-flex align-items-baseline me-1">
             <span id="display" class="h4 mb-0">00:00:00</span>.
@@ -141,13 +137,13 @@
         <div id="resultado" class="mt-2"></div>        
         <div class="card shadow-sm border-0">
           <div class="card-body p-0 text-center">         
-            <div class="baralho-cards d-flex flex-wrap justify-content-center gap-2 mb-3 mt-1">
+            <div class="baralho-cards d-flex flex-wrap justify-content-center gap-2 mb-2 mt-2">
               <button id="deck-decisao" class="btn" onclick="iniciarBaralho('decisao_arquitetural')">🎴 Decisão Arquitetural</button>
               <button id="deck-atributo" class="btn" onclick="iniciarBaralho('atributo_qualidade')">🎴 Atributo de Qualidade</button>
               <button id="deck-padrao" class="btn" onclick="iniciarBaralho('padrao_arquitetural')">🎴 Padrão Arquitetural</button>
               <button id="deck-sorte" class="btn" onclick="iniciarBaralho('sorte_reves')">🎴 Sorte / Revés</button>
             </div>
-            <div class="d-flex justify-content-center gap-1 mb-1">
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-1 mb-1">
               <button onclick="embaralharCartas()" class="btn btn-outline-primary btn-menu-adm">🎲 Embaralhar Cartas</button>
               <button onclick="ordenarCartas()" class="btn btn-outline-primary btn-menu-adm">🔢 Ordenar Cartas</button>
             </div>
